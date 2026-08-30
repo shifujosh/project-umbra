@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Radaris Public Profile - {{FULL_NAME}}</title>
+</head>
+<body>
+    <div class="radaris-container">
+        <div class="radaris-card profile-head">
+            <h1 class="person-name">{{FULL_NAME}}</h1>
+            <div class="person-meta">
+                <span class="age-info">Age 50</span> | <span class="location">{{CURRENT_CITY}}, {{CURRENT_STATE}}</span>
+            </div>
+            <div class="addresses-block">
+                <h3>Addresses</h3>
+                <div class="address-item current">{{KNOWN_ADDRESS}}</div>
+                <div class="address-item historical">4500 University Blvd, Lubbock, TX 79409</div>
+            </div>
+            <div class="phones-block">
+                <h3>Phone Records</h3>
+                <div class="phone-number">{{PHONE}}</div>
+            </div>
+            <div class="relatives-block">
+                <h3>Family & Associates</h3>
+                <a class="relative-name" href="/p/{{RELATIVE_1}}">{{RELATIVE_1}}</a>
+                <a class="relative-name" href="/p/{{RELATIVE_2}}">{{RELATIVE_2}}</a>
+            </div>
+            <div class="privacy-control">
+                <a href="https://radaris.com/control/privacy" class="opt-out-action">Control Profile Information</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TruePeopleSearch.com - Results for {{FULL_NAME}}</title>
+</head>
+<body>
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-12 card card-summary shadow-sm my-3 p-3">
+                <div class="card-header bg-white border-0">
+                    <h2 class="card-title text-primary">{{FULL_NAME}}</h2>
+                    <span class="badge badge-secondary">Age 48</span>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold">Current Address:</h6>
+                            <p class="current-address">{{KNOWN_ADDRESS}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold">Lives in:</h6>
+                            <p class="location-summary">{{CURRENT_CITY}}, {{CURRENT_STATE}}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold">Phone Numbers:</h6>
+                            <ul class="list-unstyled phone-list">
+                                <li class="phone-item"><span class="phone-number">{{PHONE}}</span> - <small class="text-muted">Wireless / Primary</small></li>
+                                <li class="phone-item"><span class="phone-number">(214) 555-0199</span> - <small class="text-muted">Landline</small></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold">Email Addresses:</h6>
+                            <ul class="list-unstyled email-list">
+                                <li class="email-item">{{PRIMARY_EMAIL}}</li>
+                                <li class="email-item">contact.{{FIRST_NAME}}@gmail.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <h6 class="font-weight-bold">Possible Relatives & Associates:</h6>
+                            <div class="relatives-tags">
+                                <a href="/find/person/eleanor-brody" class="badge badge-light mr-1">{{RELATIVE_1}}</a>
+                                <a href="/find/person/arthur-brody" class="badge badge-light mr-1">{{RELATIVE_2}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 text-right">
+                            <a href="https://www.truepeoplesearch.com/removal" class="btn btn-outline-danger btn-sm opt-out-link">Opt Out / Remove Record</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

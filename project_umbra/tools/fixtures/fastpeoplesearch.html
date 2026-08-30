@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastPeopleSearch - Records for {{FULL_NAME}}</title>
+</head>
+<body>
+    <div class="wrapper">
+        <section class="search-results">
+            <article class="card card-block person-detail">
+                <h2 class="card-title">{{FULL_NAME}}</h2>
+                <div class="detail-box">
+                    <dl>
+                        <dt>Age:</dt>
+                        <dd><span class="age">45 years old</span></dd>
+                        <dt>Current Residence:</dt>
+                        <dd><span class="address">{{KNOWN_ADDRESS}}</span></dd>
+                        <dt>Phone Numbers:</dt>
+                        <dd>
+                            <span class="phone">{{PHONE}}</span> (Wireless)<br>
+                            <span class="phone">(214) 555-0842</span> (Home)
+                        </dd>
+                        <dt>Email Addresses:</dt>
+                        <dd>
+                            <span class="email">{{PRIMARY_EMAIL}}</span>
+                        </dd>
+                        <dt>Possible Relatives:</dt>
+                        <dd>
+                            <span class="relative">{{RELATIVE_1}}</span>, <span class="relative">{{RELATIVE_2}}</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="removal-section">
+                    <a href="https://www.fastpeoplesearch.com/removal" class="btn-removal">Record Removal Request</a>
+                </div>
+            </article>
+        </section>
+    </div>
+</body>
+</html>

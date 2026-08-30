@@ -1,0 +1,130 @@
+{
+  "by_category": {
+    "documents_spreadsheets": [
+      {
+        "title": "CONFIDENTIAL Employee Roster & SSN Master List 2023 [PDF]",
+        "url": "https://s3.amazonaws.com/internal-corp-assets/leaks/2023_payroll_master.pdf",
+        "snippet": "Internal Payroll Document. Target Name: {name}. SSN: 452-XX-XXXX, DOB: 04/12/1984. Primary Email: {email}. Confidential.",
+        "domain": "s3.amazonaws.com",
+        "risk_level": "critical",
+        "category": "documents_spreadsheets"
+      },
+      {
+        "title": "Public Court Records & Asset Schedule Index - {name}",
+        "url": "https://court-records.texas.gov/docket/view?target={name_slug}",
+        "snippet": "Travis County Civil Court Records. Subject: {name}. Residence: {location}. Case #2024-CV-81920. Filed under asset disclosures.",
+        "domain": "court-records.texas.gov",
+        "risk_level": "high",
+        "category": "documents_spreadsheets"
+      }
+    ],
+    "pastebins_dumps": [
+      {
+        "title": "ComboBreach 2024 Combo List #14 - Pastebin.com",
+        "url": "https://pastebin.com/raw/d8X9Y7w1",
+        "snippet": "Leak Entry: {email}:pbkdf2_sha256$260000$targetHashVal. Name: {name}. Phone: {phone}. Database breach combo dump.",
+        "domain": "pastebin.com",
+        "risk_level": "critical",
+        "category": "pastebins_dumps"
+      },
+      {
+        "title": "Database Dump 2023 - JustPaste.it",
+        "url": "https://justpaste.it/v92x01k",
+        "snippet": "Target Account record: {name} | {email} | {phone} | IP: 198.51.100.42 | Hash: $2y$10$e8w...",
+        "domain": "justpaste.it",
+        "risk_level": "critical",
+        "category": "pastebins_dumps"
+      }
+    ],
+    "code_repos_configs": [
+      {
+        "title": "public-infra/.env at main - {name} - GitHub",
+        "url": "https://github.com/target-org/public-infra/blob/main/.env",
+        "snippet": "DATABASE_URL=postgres://{name_slug}:SecretP@ssw0rd!@db.internal:5432/prod # Developer: {name} ADMIN_EMAIL={email} API_SECRET_KEY=sk_live_98a7sd...",
+        "domain": "github.com",
+        "risk_level": "critical",
+        "category": "code_repos_configs"
+      },
+      {
+        "title": "secrets.yaml - {name} - GitLab Snippets",
+        "url": "https://gitlab.com/-/snippets/3819201",
+        "snippet": "apiVersion: v1 kind: Secret metadata: name: auth-creds data: developer: {name} developer_email: {email} token: ghp_91283019283",
+        "domain": "gitlab.com",
+        "risk_level": "critical",
+        "category": "code_repos_configs"
+      }
+    ],
+    "credential_leaks": [
+      {
+        "title": "DeHashed Search Result: {email} ({name})",
+        "url": "https://dehashed.com/search?query={email}",
+        "snippet": "Target Record Found: Name: {name} | Email: {email} | Username: {username} | Plaintext Password: Passw0rd123! | Phone: {phone} | Address: {location}",
+        "domain": "dehashed.com",
+        "risk_level": "critical",
+        "category": "credential_leaks"
+      },
+      {
+        "title": "BreachDirectory Exposure Record - {name}",
+        "url": "https://breachdirectory.org/p/{name_slug}",
+        "snippet": "Compromised Credentials: {name} ({email}) found in 3 breach datasets (Collection#1, StealerLogs, Exploit.in).",
+        "domain": "breachdirectory.org",
+        "risk_level": "critical",
+        "category": "credential_leaks"
+      }
+    ],
+    "gov_public_directories": [
+      {
+        "title": "State Bar Directory & Active Attorney Roster - {name}",
+        "url": "https://texasbar.com/directory/member/{name_slug}",
+        "snippet": "Licensed Member: {name}. Bar Card #891024. Office Address: {location}. Email: {email}. Status: Active.",
+        "domain": "texasbar.com",
+        "risk_level": "medium",
+        "category": "gov_public_directories"
+      },
+      {
+        "title": "County Appraisal District Property Assessment - {name}",
+        "url": "https://prop-appraisal.gov/parcel/record?owner={name_slug}",
+        "snippet": "Owner Name: {name}. Property Address: {location}. Legal Description: Lot 4 Block 12 Elm Creek. Assessed Value: $420,000.",
+        "domain": "prop-appraisal.gov",
+        "risk_level": "medium",
+        "category": "gov_public_directories"
+      }
+    ],
+    "data_broker_profiles": [
+      {
+        "title": "{name} - Phone, Address, Relatives - TruePeopleSearch",
+        "url": "https://www.truepeoplesearch.com/find/person/{name_slug}",
+        "snippet": "Current Address: {location}. Phone Numbers: {phone}. Relatives: Eleanor Brody, David Brody. Email: {email}. Age: 42.",
+        "domain": "truepeoplesearch.com",
+        "risk_level": "high",
+        "category": "data_broker_profiles"
+      },
+      {
+        "title": "{name} Background Report & Public Records - Radaris",
+        "url": "https://radaris.com/p/{name_slug}",
+        "snippet": "Public Profile for {name} in {location}. Phone: {phone}. Known Emails: {email}. Past residences and associates listed.",
+        "domain": "radaris.com",
+        "risk_level": "high",
+        "category": "data_broker_profiles"
+      }
+    ],
+    "social_exposure": [
+      {
+        "title": "{name} - Staff Security Engineer - LinkedIn",
+        "url": "https://www.linkedin.com/in/{name_slug}",
+        "snippet": "{name} located in {location}. Experience: CyberDefense Inc, Texas Tech University. Contact: {email}. 500+ connections.",
+        "domain": "linkedin.com",
+        "risk_level": "low",
+        "category": "social_exposure"
+      },
+      {
+        "title": "{username} ({name}) - GitHub Profile",
+        "url": "https://github.com/{username}",
+        "snippet": "{username} ({name}) - Personal portfolio and OSS repositories. Email: {email}. Location: {location}.",
+        "domain": "github.com",
+        "risk_level": "low",
+        "category": "social_exposure"
+      }
+    ]
+  }
+}

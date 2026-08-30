@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuwber - {{FULL_NAME}} Public Records</title>
+</head>
+<body>
+    <main class="nuwber-profile">
+        <section class="search-results-item">
+            <h2 class="name">{{FULL_NAME}}</h2>
+            <div class="location-text">{{CURRENT_CITY}}, {{CURRENT_STATE}}</div>
+            <div class="full-address">{{KNOWN_ADDRESS}}</div>
+            <div class="phones-list">
+                <span>{{PHONE}}</span>
+            </div>
+            <div class="emails-list">
+                <span>{{PRIMARY_EMAIL}}</span>
+            </div>
+            <div class="relatives-list">
+                <a href="/person/{{RELATIVE_1}}">{{RELATIVE_1}}</a>
+                <a href="/person/{{RELATIVE_2}}">{{RELATIVE_2}}</a>
+            </div>
+            <div class="optout-footer">
+                <a href="https://nuwber.com/removal/link" class="nuwber-optout">Remove My Info</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

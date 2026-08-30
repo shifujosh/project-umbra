@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Project Umbra — System Architecture &amp; Data Flow</title>
+  <desc id="description">A directional four-zone architecture diagram for Project Umbra: authorized intake, the Cloud Run investigation pipeline, Gemini 3.7 Flash and Firestore, and the user-controlled action boundary.</desc>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;700&amp;display=swap');
+
+      .bg { fill: #04090e; }
+      .grid-line { stroke: rgba(38, 192, 211, 0.04); stroke-width: 1; }
+      .zone-bg { fill: #060e15; stroke: rgba(180, 140, 75, 0.28); stroke-width: 1.5; }
+      .zone-header { fill: #df8a45; font-family: 'Oxanium', monospace, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
+      .card-default { fill: #08141d; stroke: rgba(85, 209, 223, 0.22); stroke-width: 1.2; }
+      .card-amber { fill: #0f1515; stroke: rgba(223, 138, 69, 0.45); stroke-width: 1.8; }
+      .card-cyan { fill: #071720; stroke: #26c0d3; stroke-width: 1.8; }
+      .card-google { fill: #081928; stroke: #5b96f7; stroke-width: 2; }
+      .card-green { fill: #071c16; stroke: #61d98b; stroke-width: 1.8; }
+      .card-gate { fill: #1c0a10; stroke: #ff5c7c; stroke-width: 2.2; }
+      .card-out { fill: #091017; stroke: rgba(120, 150, 165, 0.28); stroke-width: 1.2; stroke-dasharray: 5 4; }
+
+      .main-title { fill: #f0e7d7; font-family: 'Oxanium', monospace, sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; }
+      .main-title span { fill: #e67826; }
+      .main-sub { fill: #8fa1a5; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500; }
+
+      .node-title { fill: #f0e7d7; font-family: 'Oxanium', monospace, sans-serif; font-size: 14.5px; font-weight: 700; letter-spacing: 0.5px; }
+      .node-title-google { fill: #9ec5fe; font-family: 'Oxanium', monospace, sans-serif; font-size: 15px; font-weight: 750; letter-spacing: 0.5px; }
+      .node-title-gate { fill: #ff94ab; font-family: 'Oxanium', monospace, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 1px; }
+
+      .node-body { fill: #a4b7b9; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 11.5px; font-weight: 400; line-height: 1.4; }
+      .node-sub { fill: #72898c; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 10px; font-weight: 500; }
+
+      .node-badge { fill: #26c0d3; font-family: 'Geist Mono', monospace, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.3px; }
+      .node-badge-amber { fill: #e8a86b; font-family: 'Geist Mono', monospace, sans-serif; font-size: 10px; font-weight: 700; }
+      .node-badge-green { fill: #61d98b; font-family: 'Geist Mono', monospace, sans-serif; font-size: 10px; font-weight: 700; }
+      .node-badge-gate { fill: #ff859d; font-family: 'Geist Mono', monospace, sans-serif; font-size: 10.5px; font-weight: 800; }
+
+      .step-num { fill: #e67826; font-family: 'Oxanium', monospace, sans-serif; font-size: 13px; font-weight: 800; }
+
+      .flow-arrow { fill: none; stroke: #3a6272; stroke-width: 1.8; marker-end: url(#arrDefault); }
+      .flow-arrow-amber { fill: none; stroke: #df8a45; stroke-width: 2; marker-end: url(#arrAmber); }
+      .flow-arrow-cyan { fill: none; stroke: #26c0d3; stroke-width: 2; marker-end: url(#arrCyan); }
+      .flow-arrow-google { fill: none; stroke: #5b96f7; stroke-width: 2; marker-end: url(#arrGoogle); }
+      .flow-arrow-green { fill: none; stroke: #61d98b; stroke-width: 2; marker-end: url(#arrGreen); }
+      .flow-arrow-gate { fill: none; stroke: #ff5c7c; stroke-width: 2.2; stroke-dasharray: 5 4; marker-end: url(#arrGate); }
+
+      .legend-text { fill: #8fa1a5; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 11.5px; }
+    </style>
+
+    <pattern id="bgGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(38, 192, 211, 0.025)" stroke-width="1"/>
+    </pattern>
+
+    <marker id="arrDefault" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3a6272"/></marker>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#df8a45"/></marker>
+    <marker id="arrCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#26c0d3"/></marker>
+    <marker id="arrGoogle" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#5b96f7"/></marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#61d98b"/></marker>
+    <marker id="arrGate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#ff5c7c"/></marker>
+  </defs>
+
+  <!-- Background with subtle luxury grid -->
+  <rect class="bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#bgGrid)"/>
+
+  <!-- Header -->
+  <g transform="translate(60, 48)">
+    <text class="main-title" x="0" y="0">PROJECT <tspan fill="#e67826">UMBRA</tspan> · SYSTEM ARCHITECTURE</text>
+    <text class="main-sub" x="0" y="24">Your personal privacy agent · Evidence-backed investigation · Approval-ready plan · User-controlled action</text>
+  </g>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <!-- ZONE 1: INTAKE & ACCESS BOUNDARY (x: 60, w: 310) -->
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <rect class="zone-bg" x="60" y="110" width="310" height="715" rx="12"/>
+  <text class="zone-header" x="80" y="138">01 · INTAKE &amp; ACCESS</text>
+
+  <!-- Node 1.1: Target Identity Profile -->
+  <rect class="card-amber" x="80" y="160" width="270" height="110" rx="8"/>
+  <text class="node-title" x="98" y="190">Target Identity Profile</text>
+  <text class="node-body" x="98" y="212">Name, emails, phone, city/state,</text>
+  <text class="node-body" x="98" y="230">known employers &amp; usernames</text>
+  <text class="node-badge-amber" x="98" y="254">Synthetic: Avery Mercer</text>
+
+  <!-- Node 1.2: Access Security Boundary -->
+  <rect class="card-cyan" x="80" y="315" width="270" height="120" rx="8"/>
+  <text class="node-title" x="98" y="345">Authorized Mission Access</text>
+  <text class="node-body" x="98" y="367">POST /api/v1/scan</text>
+  <text class="node-body" x="98" y="385">Private authorization check</text>
+  <text class="node-sub" x="98" y="403">Mission-scoped access capability</text>
+  <text class="node-badge" x="98" y="423">No access values in URLs</text>
+
+  <!-- Node 1.3: Mission Controller -->
+  <rect class="card-default" x="80" y="480" width="270" height="150" rx="8"/>
+  <text class="node-title" x="98" y="510">Finite-State Controller</text>
+  <text class="node-body" x="98" y="532">Bounded execution state machine</text>
+  <text class="node-body" x="98" y="550">Strict 25-step execution budget</text>
+  <text class="node-body" x="98" y="568">Non-blocking background runner</text>
+  <text class="node-badge-green" x="98" y="606">Policy: Plan-Only (No Dispatch)</text>
+
+  <!-- Node 1.4: Synthetic Demo Replay -->
+  <rect class="card-out" x="80" y="665" width="270" height="135" rx="8"/>
+  <text class="node-title" x="98" y="695">Public Demo Replay</text>
+  <text class="node-body" x="98" y="717">Safe deterministic SSE stream</text>
+  <text class="node-body" x="98" y="735">No production access required</text>
+  <text class="node-sub" x="98" y="755">Product experience only</text>
+  <text class="node-badge" x="98" y="780">/stream · Avery Mercer</text>
+
+  <!-- Zone 1 internal downward arrows -->
+  <path class="flow-arrow-amber" d="M215 270 V305"/>
+  <path class="flow-arrow-cyan" d="M215 435 V470"/>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <!-- ZONE 2: AUTONOMOUS AGENT PIPELINE (x: 395, w: 410) -->
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <rect class="zone-bg" x="395" y="110" width="410" height="715" rx="12"/>
+  <text class="zone-header" x="415" y="138">02 · AGENT PIPELINE (Cloud Run)</text>
+
+  <!-- Stage 1 -->
+  <rect class="card-default" x="415" y="160" width="370" height="85" rx="8"/>
+  <text class="step-num" x="432" y="186">01</text>
+  <text class="node-title" x="462" y="186">Identity Decomposer</text>
+  <text class="node-body" x="432" y="210">Breaks profile into 5 orthogonal vector categories:</text>
+  <text class="node-sub" x="432" y="230">Direct · Digital Footprint · Geographic · Relational · Breach</text>
+
+  <!-- Stage 2 -->
+  <rect class="card-amber" x="415" y="270" width="370" height="85" rx="8"/>
+  <text class="step-num" x="432" y="296">02</text>
+  <text class="node-title" x="462" y="296">Precision Dork Synthesizer</text>
+  <text class="node-body" x="432" y="320">Prepares targeted public-source queries across</text>
+  <text class="node-sub" x="432" y="340">documents, repositories, public directories, and brokers</text>
+
+  <!-- Stage 3 -->
+  <rect class="card-default" x="415" y="380" width="370" height="85" rx="8"/>
+  <text class="step-num" x="432" y="406">03</text>
+  <text class="node-title" x="462" y="406">Multi-Source Acquisition</text>
+  <text class="node-body" x="432" y="430">SERP Search Engine &amp; Headless Playwright</text>
+  <text class="node-sub" x="432" y="450">Live providers or clearly labeled controlled fixtures</text>
+
+  <!-- Stage 4 -->
+  <rect class="card-google" x="415" y="490" width="370" height="92" rx="8"/>
+  <text class="step-num" x="432" y="516" style="fill:#5b96f7;">04</text>
+  <text class="node-title-google" x="462" y="516">Gemini 3.7 Flash Structured Extractor</text>
+  <text class="node-body" x="432" y="540">Normalizes source text for structured extraction</text>
+  <text class="node-sub" x="432" y="560">Google GenAI SDK · Strict Pydantic v2 JSON Schema</text>
+
+  <!-- Stage 5 -->
+  <rect class="card-default" x="415" y="605" width="370" height="85" rx="8"/>
+  <text class="step-num" x="432" y="631">05</text>
+  <text class="node-title" x="462" y="631">PII Sanitizer &amp; Risk Classifier</text>
+  <text class="node-body" x="432" y="655">Deterministic checks, masking, and evidence rules</text>
+  <text class="node-sub" x="432" y="675">Calculates current exposure and categorized severity</text>
+
+  <!-- Stage 6 -->
+  <rect class="card-green" x="415" y="715" width="370" height="90" rx="8"/>
+  <text class="step-num" x="432" y="741" style="fill:#61d98b;">06</text>
+  <text class="node-title" x="462" y="741">Assisted Action Plan Engine</text>
+  <text class="node-body" x="432" y="765">Generates direct removal URLs &amp; CCPA/GDPR demand packets</text>
+  <text class="node-badge-green" x="432" y="789">STATUS: PREPARED FOR USER REVIEW</text>
+
+  <!-- Zone 2 internal downward arrows -->
+  <path class="flow-arrow" d="M600 245 V260"/>
+  <path class="flow-arrow-amber" d="M600 355 V370"/>
+  <path class="flow-arrow" d="M600 465 V480"/>
+  <path class="flow-arrow-google" d="M600 582 V595"/>
+  <path class="flow-arrow-green" d="M600 690 V705"/>
+
+  <!-- Zone 1 to Zone 2 Connector -->
+  <path class="flow-arrow-amber" d="M350 215 H375 V202 H405"/>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <!-- ZONE 3: PERSISTENCE & AI SERVICES (x: 830, w: 350) -->
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <rect class="zone-bg" x="830" y="110" width="350" height="715" rx="12"/>
+  <text class="zone-header" x="850" y="138">03 · GOOGLE CLOUD &amp; AI</text>
+
+  <!-- Node 3.1: Google Gemini API -->
+  <rect class="card-google" x="850" y="160" width="310" height="175" rx="8"/>
+  <text class="node-title-google" x="870" y="192">Google Gemini 3.7 Flash</text>
+  <text class="node-body" x="870" y="218">Google GenAI SDK (google-genai)</text>
+  <text class="node-body" x="870" y="238">Structured JSON extraction schema</text>
+  <text class="node-body" x="870" y="258">Provider response ID tracking</text>
+  <text class="node-body" x="870" y="278">Schema validation and provenance tracking</text>
+  <text class="node-badge" x="870" y="312">Model: gemini-3.7-flash</text>
+
+  <!-- Node 3.2: Firestore Persistence -->
+  <rect class="card-green" x="850" y="375" width="310" height="175" rx="8"/>
+  <text class="node-title" x="870" y="407">Google Cloud Firestore</text>
+  <text class="node-body" x="870" y="433">Cloud document persistence</text>
+  <text class="node-body" x="870" y="453">Mission state and evidence records</text>
+  <text class="node-body" x="870" y="473">Target profile, findings &amp; action plan</text>
+  <text class="node-body" x="870" y="493">SHA-256 evidence integrity hashes</text>
+  <text class="node-badge-green" x="870" y="527">Durable mission context</text>
+
+  <!-- Node 3.3: SSE Telemetry Feed -->
+  <rect class="card-cyan" x="850" y="590" width="310" height="165" rx="8"/>
+  <text class="node-title" x="870" y="622">Real-Time SSE Telemetry</text>
+  <text class="node-body" x="870" y="648">Live Server-Sent Events stream</text>
+  <text class="node-body" x="870" y="668">Instant UI updates &amp; stage counters</text>
+  <text class="node-body" x="870" y="688">Audit ledger with provider metadata</text>
+  <text class="node-badge" x="870" y="730">GET /api/v1/scan/{id}/events</text>
+
+  <!-- Clean Parallel Non-Crossing Connectors between Zone 2 and Zone 3 -->
+  <!-- Stage 4 <-> Gemini 3.7 -->
+  <path class="flow-arrow-google" d="M785 536 H815 V248 H840"/>
+  <!-- Stage 6 -> Firestore -->
+  <path class="flow-arrow-green" d="M785 745 H815 V462 H840"/>
+  <!-- Stage 6 -> SSE -->
+  <path class="flow-arrow-cyan" d="M785 770 H840"/>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <!-- ZONE 4: HUMAN GATE & DELIVERABLES (x: 1205, w: 335) -->
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <rect class="zone-bg" x="1205" y="110" width="335" height="715" rx="12"/>
+  <text class="zone-header" x="1225" y="138">04 · HUMAN GATE &amp; ACTION</text>
+
+  <!-- Node 4.1: UI & Risk Report -->
+  <rect class="card-green" x="1225" y="160" width="295" height="195" rx="8"/>
+  <text class="node-title" x="1245" y="192">Cockpit &amp; Risk Report</text>
+  <text class="node-body" x="1245" y="218">Interactive 4-Branch Dendrogram</text>
+  <text class="node-body" x="1245" y="238">Exposure Index &amp; Severity Breakdown</text>
+  <text class="node-body" x="1245" y="258">Prepared CCPA &amp; GDPR Packets</text>
+  <text class="node-body" x="1245" y="278">Evidence dossiers with active links</text>
+  <text class="node-badge-green" x="1245" y="318">Decision-ready privacy case</text>
+
+  <!-- Node 4.2: Human Consequence Boundary -->
+  <rect class="card-gate" x="1225" y="395" width="295" height="210" rx="8"/>
+  <text class="node-title-gate" x="1245" y="428">USER DECISION BOUNDARY</text>
+  <text class="node-body" x="1245" y="455">Umbra prepares the next action.</text>
+  <text class="node-body" x="1245" y="475">The user reviews the evidence,</text>
+  <text class="node-body" x="1245" y="495">chooses the official workflow,</text>
+  <text class="node-body" x="1245" y="520">and authorizes any external step.</text>
+  <text class="node-body" x="1245" y="538">Every consequential choice returns.</text>
+  <text class="node-badge-gate" x="1245" y="582">POLICY: PLAN ONLY</text>
+
+  <!-- Node 4.3: Official Broker Removal -->
+  <rect class="card-out" x="1225" y="650" width="295" height="155" rx="8"/>
+  <text class="node-title" x="1245" y="682">Official Broker Workflows</text>
+  <text class="node-body" x="1245" y="708">Official removal destinations</text>
+  <text class="node-body" x="1245" y="726">Required inputs and priorities</text>
+  <text class="node-body" x="1245" y="744">Evidence-linked follow-up guidance</text>
+  <text class="node-sub" x="1245" y="770">User reviews and controls submission</text>
+
+  <!-- Zone 4 internal downward arrows -->
+  <path class="flow-arrow-green" d="M1372 355 V385"/>
+  <path class="flow-arrow-gate" d="M1372 605 V640"/>
+
+  <!-- Zone 3 to Zone 4 Clean Connector -->
+  <path class="flow-arrow-green" d="M1160 248 H1215"/>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <!-- LEGEND FOOTER (y: 840) -->
+  <!-- ══════════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(60, 855)">
+    <rect x="0" y="0" width="14" height="14" rx="3" fill="#0f1515" stroke="#df8a45" stroke-width="1.5"/>
+    <text class="legend-text" x="22" y="12">Intake / Dork Synthesis</text>
+
+    <rect x="195" y="0" width="14" height="14" rx="3" fill="#071720" stroke="#26c0d3" stroke-width="1.5"/>
+    <text class="legend-text" x="217" y="12">Agent Pipeline / Telemetry</text>
+
+    <rect x="410" y="0" width="14" height="14" rx="3" fill="#081928" stroke="#5b96f7" stroke-width="1.5"/>
+    <text class="legend-text" x="432" y="12">Google Gemini 3.7 Flash</text>
+
+    <rect x="625" y="0" width="14" height="14" rx="3" fill="#071c16" stroke="#61d98b" stroke-width="1.5"/>
+    <text class="legend-text" x="647" y="12">Firestore / Deliverables</text>
+
+    <rect x="830" y="0" width="14" height="14" rx="3" fill="#1c0a10" stroke="#ff5c7c" stroke-width="2"/>
+    <text class="legend-text" x="852" y="12">Human Gate (0 Dispatches)</text>
+
+    <text class="legend-text" x="1165" y="12" style="fill:#8fa1a5;">Personal Privacy Investigation Pipeline</text>
+  </g>
+</svg>

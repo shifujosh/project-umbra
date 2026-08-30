@@ -1,0 +1,33 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "receipts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "mission_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "submission_timestamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "telemetry",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "scan_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
