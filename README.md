@@ -63,7 +63,7 @@ The public walkthrough uses the fictional Avery Mercer identity. Controlled fixt
 
 ### Requirements
 
-- Python 3.12+
+- Python 3.12+ and [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - Chromium installed through Playwright
 - A Gemini API key for live structured extraction
 - Optional Google Cloud credentials for Firestore
@@ -74,9 +74,8 @@ The public walkthrough uses the fictional Avery Mercer identity. Controlled fixt
 git clone https://github.com/shifujosh/project-umbra.git
 cd project-umbra
 
-python3.12 -m venv .venv
+uv sync --locked --extra dev --python 3.12
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
 python -m playwright install chromium
 
 cp .env.example .env
@@ -105,6 +104,18 @@ Set `GEMINI_API_KEY` privately for live Gemini extraction. Never commit `.env` o
 The public suite covers mission control, acquisition modes, extraction, PII handling, action-plan generation, access control, persistence, API behavior, deployment contracts, and the product interface.
 
 ## Google Cloud deployment
+
+The container installs production dependencies from `uv.lock`. Validate the Linux
+image and browser under its default non-root user before deployment; passing the
+local Python suite does not establish that the container works:
+
+```bash
+bash scripts/verify-container.sh
+```
+
+This builds the image, then checks production startup, SQLite readiness, the
+dashboard and real Chromium without network access. It uses temporary verification
+tokens inside the disposable container. Docker is required.
 
 Authenticate with Google Cloud, choose a project you control, and run:
 
