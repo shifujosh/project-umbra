@@ -110,17 +110,12 @@ image and browser under its default non-root user before deployment; passing the
 local Python suite does not establish that the container works:
 
 ```bash
-docker build -t project-umbra:local .
-docker run --rm -i --entrypoint python project-umbra:local - <<'PY'
-from playwright.sync_api import sync_playwright
-with sync_playwright() as p:
-    browser = p.chromium.launch()
-    page = browser.new_page()
-    page.set_content("<title>Umbra</title>")
-    assert page.title() == "Umbra"
-    browser.close()
-PY
+bash scripts/verify-container.sh
 ```
+
+This builds the image, then checks production startup, SQLite readiness, the
+dashboard and real Chromium without network access. It uses temporary verification
+tokens inside the disposable container. Docker is required.
 
 Authenticate with Google Cloud, choose a project you control, and run:
 
